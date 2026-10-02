@@ -1,0 +1,118 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-inter-tight), 'Inter Tight', Arial, sans-serif;
+  --font-mono: var(--font-jetbrains), 'JetBrains Mono', ui-monospace, monospace;
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --color-header: var(--header);
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+}
+
+:root {
+  color-scheme: dark;
+  --background: #141614;
+  --header: #0e100e;
+  --foreground: #f0f0e5;
+  --card: #1d211e;
+  --card-foreground: #f0f0e5;
+  --popover: #1d211e;
+  --popover-foreground: #f0f0e5;
+  /* Cumble teal, taken from the logo */
+  --primary: #4cc3d6;
+  --primary-foreground: #0e1a1c;
+  /* Cumble cream, active nav / tabs */
+  --secondary: #efe6cf;
+  --secondary-foreground: #141614;
+  --muted: #1d211e;
+  --muted-foreground: #a3a69c;
+  --accent: #1d211e;
+  --accent-foreground: #f0f0e5;
+  --destructive: #e5654f;
+  --border: #3b3f3a;
+  --input: #3b3f3a;
+  --ring: #4cc3d6;
+  --radius: 0px;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@keyframes earth-drift {
+  0% {
+    transform: scale(1.08) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.16) translate3d(-1.5%, -1%, 0);
+  }
+  100% {
+    transform: scale(1.08) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes star-twinkle {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.earth-drift {
+  animation: earth-drift 40s ease-in-out infinite;
+}
+
+.star-twinkle {
+  animation: star-twinkle 6s ease-in-out infinite;
+}
+
+.bg-paused .earth-drift,
+.bg-paused .star-twinkle {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .earth-drift,
+  .star-twinkle {
+    animation: none;
+  }
+}
+
+.dot-grid {
+  background-image: radial-gradient(rgba(240, 240, 229, 0.18) 1px, transparent 1.2px);
+  background-size: 9px 9px;
+}
