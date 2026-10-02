@@ -102,7 +102,6 @@ export function SiteHeader() {
 
           <ConnectWalletButton />
 
-          {/* Sadece Launch Cumble Butonu (Forma İndirir) */}
           <button
             type="button"
             onClick={handleLaunchClick}
