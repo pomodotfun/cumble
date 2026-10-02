@@ -40,15 +40,20 @@ export function SiteHeader() {
     setMenuOpen(false)
   }
 
-  const handleScrollToDeploy = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (pathname === '/') {
-      e.preventDefault()
-      const el = document.getElementById('deploy-section')
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' })
-      }
-    }
+  const handleLaunchClick = (e: React.MouseEvent) => {
+    e.preventDefault()
     setMenuOpen(false)
+
+    if (pathname === '/') {
+      const target = document.getElementById('deploy-section')
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      } else {
+        window.location.hash = 'deploy-section'
+      }
+    } else {
+      router.push('/#deploy-section')
+    }
   }
 
   return (
@@ -77,8 +82,8 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <div className="ml-auto hidden items-center gap-2 lg:flex">
-          <form role="search" onSubmit={onSearch} className="mr-4">
+        <div className="ml-auto hidden items-center gap-3 lg:flex">
+          <form role="search" onSubmit={onSearch} className="mr-2">
             <label className="flex h-11 w-72 items-center gap-2.5 border border-border px-3 focus-within:border-primary">
               <Search className="size-3.5 text-muted-foreground" aria-hidden="true" />
               <span className="sr-only">Search Cumbles</span>
@@ -94,21 +99,17 @@ export function SiteHeader() {
               </kbd>
             </label>
           </form>
+
           <ConnectWalletButton />
-          <Link
-            href="/#deploy-section"
-            onClick={handleScrollToDeploy}
-            className="flex h-11 items-center border border-border px-4 font-mono text-sm text-primary transition-colors hover:border-primary"
-          >
-            Launch coin
-          </Link>
-          <Link
-            href="/#deploy-section"
-            onClick={handleScrollToDeploy}
-            className="flex h-11 items-center bg-primary px-4 font-mono text-sm text-primary-foreground transition-opacity hover:opacity-90"
+
+          {/* Sadece Launch Cumble Butonu (Forma İndirir) */}
+          <button
+            type="button"
+            onClick={handleLaunchClick}
+            className="flex h-11 items-center bg-primary px-5 font-mono text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 cursor-pointer"
           >
             Launch Cumble
-          </Link>
+          </button>
         </div>
 
         <button
@@ -155,22 +156,15 @@ export function SiteHeader() {
               />
             </label>
           </form>
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             <ConnectWalletButton />
-            <Link
-              href="/#deploy-section"
-              onClick={handleScrollToDeploy}
-              className="flex h-11 items-center justify-center border border-border px-4 font-mono text-sm text-primary"
-            >
-              Launch coin
-            </Link>
-            <Link
-              href="/#deploy-section"
-              onClick={handleScrollToDeploy}
-              className="flex h-11 items-center justify-center bg-primary px-4 font-mono text-sm text-primary-foreground"
+            <button
+              type="button"
+              onClick={handleLaunchClick}
+              className="flex h-11 items-center justify-center bg-primary px-4 font-mono text-sm font-semibold text-primary-foreground cursor-pointer"
             >
               Launch Cumble
-            </Link>
+            </button>
           </div>
         </div>
       )}
