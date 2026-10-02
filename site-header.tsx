@@ -6,7 +6,6 @@ import { useEffect, useRef, useState } from 'react'
 import { Menu, Search, X } from 'lucide-react'
 import { CumbleLogo } from '@/components/cumble-logo'
 import { ConnectWalletButton } from '@/components/connect-wallet-button'
-import { SITE } from '@/lib/config'
 import { cn } from '@/lib/utils'
 
 const NAV = [
@@ -38,6 +37,17 @@ export function SiteHeader() {
     e.preventDefault()
     const q = new FormData(e.currentTarget).get('q')?.toString().trim() ?? ''
     router.push(q ? `/explore?q=${encodeURIComponent(q)}` : '/explore')
+    setMenuOpen(false)
+  }
+
+  const handleScrollToDeploy = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (pathname === '/') {
+      e.preventDefault()
+      const el = document.getElementById('deploy-section')
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
     setMenuOpen(false)
   }
 
@@ -85,22 +95,20 @@ export function SiteHeader() {
             </label>
           </form>
           <ConnectWalletButton />
-          <a
-            href={SITE.pumpCreateUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/#deploy-section"
+            onClick={handleScrollToDeploy}
             className="flex h-11 items-center border border-border px-4 font-mono text-sm text-primary transition-colors hover:border-primary"
           >
             Launch coin
-          </a>
-          <a
-            href={SITE.pumpCreateUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+          </Link>
+          <Link
+            href="/#deploy-section"
+            onClick={handleScrollToDeploy}
             className="flex h-11 items-center bg-primary px-4 font-mono text-sm text-primary-foreground transition-opacity hover:opacity-90"
           >
             Launch Cumble
-          </a>
+          </Link>
         </div>
 
         <button
@@ -149,22 +157,20 @@ export function SiteHeader() {
           </form>
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
             <ConnectWalletButton />
-            <a
-              href={SITE.pumpCreateUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/#deploy-section"
+              onClick={handleScrollToDeploy}
               className="flex h-11 items-center justify-center border border-border px-4 font-mono text-sm text-primary"
             >
               Launch coin
-            </a>
-            <a
-              href={SITE.pumpCreateUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            </Link>
+            <Link
+              href="/#deploy-section"
+              onClick={handleScrollToDeploy}
               className="flex h-11 items-center justify-center bg-primary px-4 font-mono text-sm text-primary-foreground"
             >
               Launch Cumble
-            </a>
+            </Link>
           </div>
         </div>
       )}
